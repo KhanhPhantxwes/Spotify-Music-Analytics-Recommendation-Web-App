@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <title>{% block title%}Home{% endblock %}</title>
+</head>
+<body>
+
+    <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggle" type = "button" data-toggle = "collapse" data-target = "#navbar ">
+            <span class = "navbar-toggler-icon"></span>
+        </button>
+        <div class=" collapse navbar-collapse" id= "navbar">
+            <div class = "navbar-nav">
+                <a class = "nav-item nav-link" id="home" href="/">Home</a>
+                <a class = "nav-item nav-link" id="login" href="/login">Log In</a>
+                <a class = "nav-item nav-link" id="signup" href="/signup">Sign Up</a>
+                <a class = "nav-item nav-link" id="logout" href="/logout">Log Out</a>
+                
+            </div>
+
+        </div>
+        
+    </nav>
+
+
+    {% with messages = get_flashed_messages(with_categories = True) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class = "alert alert-danger alert-dismissable fade show" role = "alert"></div>
+    {{message}}
+    <button type = "button" class = "close" data-dismiss ="alert">
+        <span aria-hidden="true"></span>
+    </button>
+    {% else %}
+
+    <div class = "alert alert-success alert-dismissable fade show" role = "alert"></div>
+    {{message}}
+    <button type = "button" class = "close" data-dismiss ="alert">
+        <span aria-hidden="true"></span>
+    </button>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class = "container">
+        {% block content %}
+        <h2>This is the homepage</h2>
+        {% endblock%}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+
+
+    </nav>
+</body>
+</html>
