@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
 from .model import User
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -6,6 +7,7 @@ from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import FlaskSessionCacheHandler
 import os
+from flask_login import current_user
 
 auth = Blueprint('auth',__name__)
 
@@ -81,11 +83,12 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password,password):
                 flash('log in successfully!', category='success')
+                current_user.last_login = datetime.now(timezone.utc)
+                db.session.commit()
                 return redirect(url_for('views.home'))
             else:
                 flash('Try again', category='error')
@@ -118,7 +121,7 @@ def signup():
         elif len(password1) < 7:
             flash('password is too short', category='error')
         else:
-            new_user = User(email=email, first_name = firstname,password = generate_password_hash(password1,method = 'pbkdf2:sha256') )
+            new_user = User(email=email, first_name = firstname,password = generate_password_hash(password1,method = 'pbkdf2:sha256'), create_at = datetime.now(timezone.utc) )
             db.session.add(new_user)
             db.session.commit()
             flash('account created', category='success')

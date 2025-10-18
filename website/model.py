@@ -1,6 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from datetime import datetime, timezone
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -15,5 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
+    create_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    last_login = db.Column(db.DateTime(timezone=True))
     notes = db.relationship('Note')
     
