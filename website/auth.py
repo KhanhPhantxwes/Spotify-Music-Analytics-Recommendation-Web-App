@@ -8,6 +8,7 @@ auth = Blueprint('auth',__name__)
 @auth.route('/login', methods =[ 'GET','POST'])
 def login():
     data = request.form
+    
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -21,6 +22,7 @@ def login():
                 flash('Try again', category='error')
         else:
             flash('Email does not exist', category='error')
+            
     return render_template("login.html")
 
 @auth.route('/logout')
