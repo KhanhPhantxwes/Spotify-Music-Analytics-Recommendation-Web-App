@@ -15,7 +15,7 @@ auth = Blueprint('auth',__name__)
 Client_id = 'ecbedf2ee9224930b498f45f0e39301a'
 Client_secret = 'bdc98e6f899b423c9f96bec0cbb2860c'
 Redirect_url = 'http://127.0.0.1:5000/callback'
-Scope = 'user-library-read playlist-modify-public playlist-read-private' #different access scopes
+Scope = 'user-library-read playlist-modify-public playlist-read-private user-read-email' #different access scopes
 
 cache_handler = FlaskSessionCacheHandler(session)
 
@@ -42,12 +42,22 @@ def home_spotify():
         #LOGIN with Spotify page
         auth_url = sp_oauth.get_authorize_url() 
         return redirect(auth_url)
-    return redirect(url_for('auth.spotify_getplaylist'))  #if users already logged in
+    #return redirect(url_for('auth.spotify_getplaylist'))  #if users already logged in
+    return render_template("home.html")
 
 @auth.route("/callback")
 def callback():
     sp_oauth.get_access_token(code = request.args.get("code"))
-    return redirect(url_for('auth.spotify_getplaylist'))
+    #return redirect(url_for('auth.spotify_getplaylist'))
+    user_info = sp.current_user() #return Python dictionary
+    user_name = user_info['display_name']
+    user_id = user_info['id']
+    user_email = user_info['email']
+    user_last_login = datetime.now(ZoneInfo("America/Chicago"))
+    new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
+    db.session.add(new_user)
+    db.session.commit()
+    return render_template("home.html")
 
 @auth.route('/spotify-playlist')
 def spotify_getplaylist():
@@ -91,7 +101,7 @@ def login():
                 login_user(user)
                 current_user.last_login = datetime.now(ZoneInfo("America/Chicago"))
                 db.session.commit()
-                return redirect(url_for('views.home'))
+                return render_template("home.html")
             else:
                 flash('Try again', category='error')
         else:
@@ -130,6 +140,6 @@ def signup():
             #CHECK IF account was created and save in database
             print(f"✅ Created new user -> ID: {new_user.id}, Email: {new_user.email}, Name: {new_user.first_name}")
 
-            return redirect(url_for('views.home'))
+            return render_template("home.html")
         
     return render_template("signup.html")
