@@ -54,9 +54,18 @@ def callback():
     user_id = user_info['id']
     user_email = user_info['email']
     user_last_login = datetime.now(ZoneInfo("America/Chicago"))
-    new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
-    db.session.add(new_user)
-    db.session.commit()
+
+    #Check if current user already exists
+    user = User.query.filter_by(email=user_email).first()
+    if user:
+        login_user(user)
+        current_user.last_login = datetime.now(ZoneInfo("America/Chicago"))
+        db.session.commit()
+    else:
+        new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
+        db.session.add(new_user)
+        db.session.commit()
+    
     return render_template("home.html")
 
 @auth.route('/spotify-playlist')
