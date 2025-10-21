@@ -9,6 +9,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import FlaskSessionCacheHandler
 import os
 from flask_login import current_user, login_user
+from .get_playlist import Get_currentuser_playlist 
 
 auth = Blueprint('auth',__name__)
 
@@ -47,9 +48,15 @@ def home_spotify():
 
 @auth.route("/callback")
 def callback():
-    sp_oauth.get_access_token(code = request.args.get("code"))
-    #return redirect(url_for('auth.spotify_getplaylist'))
-    user_info = sp.current_user() #return Python dictionary
+    
+    # 1) Exchange code for tokens
+    token = sp_oauth.get_access_token(code = request.args.get("code"))
+    access_token = token["access_token"]
+
+    # 2) Build Spotify client bound to this user
+    sp1 = Spotify(auth=access_token)
+    
+    user_info = sp1.current_user() #return Python dictionary
     user_name = user_info['display_name']
     user_id = user_info['id']
     user_email = user_info['email']
@@ -65,6 +72,8 @@ def callback():
         new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
         db.session.add(new_user)
         db.session.commit()
+    
+    print(Get_currentuser_playlist(access_token, user))
     
     return render_template("home.html")
 
