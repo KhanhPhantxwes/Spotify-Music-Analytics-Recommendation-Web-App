@@ -11,10 +11,10 @@ class Note(db.Model):
     user = db.relationship("User", back_populates="notes")
 
 
-User_Song = db.Table(
-    "user_song",
-    db.Column('user_id',db.Integer, db.ForeignKey('user.id'),primary_key=True),
-    db.Column('song_id',db.String(150), db.ForeignKey('song.song_id'),primary_key=True)
+Playlist_Song = db.Table(
+    "playlist_song",
+    db.Column('playlist_id',db.String(150), db.ForeignKey('playlist.playlist_id'),primary_key=True),
+    db.Column('song_id',db.String(150), db.ForeignKey('song.song_id'),primary_key=True),
 )
 
 class Playlist(db.Model):
@@ -37,6 +37,9 @@ class Playlist(db.Model):
         primaryjoin="Playlist.owner_id==User.spotify_id",
         foreign_keys=[owner_id]
     )
+    #many-to-many
+    song = db.relationship('Song', secondary = Playlist_Song, back_populates = 'playlist')
+
 
 
 class User(db.Model, UserMixin):
@@ -53,18 +56,22 @@ class User(db.Model, UserMixin):
     playlists = db.relationship('Playlist', back_populates="owner", cascade="all, delete-orphan")
 
     #many-to-many
-    song = db.relationship('Song', secondary = User_Song, back_populates = 'user')
+    #song = db.relationship('Song', secondary = User_Song, back_populates = 'user')
 
 class Song(db.Model):
     __tablename__ = "song"
+    added_at = db.Column(db.String(150))
+    owner_id = db.Column(db.String(150))
     song_id = db.Column(db.String(150), unique=True, index=True, nullable=False,primary_key =True) #spotify track ID is string
     artist_id =  db.Column(db.String(150))
     song_name = db.Column(db.String(150))
+    song_popularity = db.Column(db.Integer)
     mood = db.Column(db.String(150))
     lyric = db.Column(db.String(2000))
 
     #many-to-many 
-    user = db.relationship('User', secondary = User_Song , back_populates = 'song')
+    playlist = db.relationship('Playlist', secondary = Playlist_Song, back_populates = 'song')
+    #user = db.relationship('User', secondary = User_Song , back_populates = 'song')
 
 
     

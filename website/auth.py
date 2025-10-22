@@ -10,6 +10,7 @@ from spotipy.cache_handler import FlaskSessionCacheHandler
 import os
 from flask_login import current_user, login_user
 from .get_playlist import Get_currentuser_playlist 
+from .get_playlist_item import Get_pl_item
 
 auth = Blueprint('auth',__name__)
 
@@ -69,11 +70,13 @@ def callback():
         current_user.last_login = datetime.now(ZoneInfo("America/Chicago"))
         db.session.commit()
         Get_currentuser_playlist(access_token, user)
+        Get_pl_item(access_token,user)
     else:
         new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
         db.session.add(new_user)
         db.session.commit()
         Get_currentuser_playlist(access_token, new_user)
+        Get_pl_item(access_token,new_user)
 
     
     #print(Get_currentuser_playlist(access_token, user))
