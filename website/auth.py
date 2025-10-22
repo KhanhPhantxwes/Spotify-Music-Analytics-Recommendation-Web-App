@@ -68,12 +68,15 @@ def callback():
         login_user(user)
         current_user.last_login = datetime.now(ZoneInfo("America/Chicago"))
         db.session.commit()
+        Get_currentuser_playlist(access_token, user)
     else:
         new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
         db.session.add(new_user)
         db.session.commit()
+        Get_currentuser_playlist(access_token, new_user)
+
     
-    print(Get_currentuser_playlist(access_token, user))
+    #print(Get_currentuser_playlist(access_token, user))
     
     return render_template("home.html")
 
