@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from .get_pl_img import Get_playlist_img
+from .get_pl_img import Get_playlist_display
 from zoneinfo import ZoneInfo
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
 from .model import User
@@ -72,7 +72,7 @@ def callback():
         db.session.commit()
         Get_currentuser_playlist(access_token, user)
         Get_pl_item(access_token,user)
-        img = Get_playlist_img(access_token,user)
+        img = Get_playlist_display(access_token,user)
         print(img)
 
     else:
@@ -81,6 +81,8 @@ def callback():
         db.session.commit()
         Get_currentuser_playlist(access_token, new_user)
         Get_pl_item(access_token,new_user)
+        img = Get_playlist_display(access_token,user)
+        print(img)
 
     
     #print(Get_currentuser_playlist(access_token, user))
