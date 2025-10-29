@@ -1,0 +1,59 @@
+[33mcommit 8766f712e7f569e9140e216c0a2c9a50bdbb60b3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Wed Oct 22 00:47:34 2025 -0500
+
+    i got inserting playlist items working
+
+[33mcommit 8c02b561c7bd93ad2a21e174c2980d7d851beb14[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Tue Oct 21 19:01:16 2025 -0500
+
+    i got add_playlist to db working
+
+[33mcommit efe117e0d93d7bdbe48c04341880ad71aded4d2f[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Tue Oct 21 18:43:41 2025 -0500
+
+    i got get_playlist function working
+
+[33mcommit 8df50cb567976537fe43118fb184df03099e5d88[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sun Oct 19 21:11:58 2025 -0500
+
+    i get last-time-login for spotify user working
+
+[33mcommit d9dd16957eedeb4fddfd6fb184d984fa628e12e0[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sun Oct 19 15:25:31 2025 -0500
+
+    I can save spotify id of user
+
+[33mcommit 81d5920ae2313a74106d41ebea1db6fa465ef2ac[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sat Oct 18 18:36:01 2025 -0500
+
+    i got timestamp working
+
+[33mcommit cae8e935b1cc77ecf016556aa750833c1818849b[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sat Oct 18 18:20:15 2025 -0500
+
+    i set up timer for db
+
+[33mcommit b58ce41173e4ae65ed6b3d19a666534505f625d1[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sat Oct 18 17:27:00 2025 -0500
+
+    I got log in with spotify work
+
+[33mcommit 4dce7bfd43698653152f0f7cd940d9763d28dcc3[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sat Oct 18 15:29:10 2025 -0500
+
+    i got sign in and sign up working
+
+[33mcommit 05eb7bdec01391c540a6d9c8211e691a4132918b[m
+Author: Juno Phan <phanngankhanhpct@gmail.com>
+Date:   Sun Oct 5 16:03:41 2025 -0500
+
+    I got sign up work

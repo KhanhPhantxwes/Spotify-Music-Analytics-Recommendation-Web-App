@@ -1,4 +1,17 @@
-{% extends "base.html" %}{% block title %}Changed{% endblock %}
+{% extends "base.html" %}{% block title %}Home{% endblock %}
 {% block content %}
         <h2>This is the homepage hihi</h2>
+
+        {% for img in images %}
+        <div class = "card" style = "width: 18rem;">
+
+                <img src = {{img}} class = " card-img-top" alt = "Playlist image">
+                <div class = "card-body">
+                        <h5>Playlist title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+        </div>
+        {% endfor %}
+
         {% endblock%}

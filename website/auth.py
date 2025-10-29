@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from .get_pl_img import Get_playlist_img
 from zoneinfo import ZoneInfo
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
 from .model import User
@@ -9,7 +10,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import FlaskSessionCacheHandler
 import os
 from flask_login import current_user, login_user
-from .get_playlist import Get_currentuser_playlist 
+from .get_playlist import Get_currentuser_playlist
 from .get_playlist_item import Get_pl_item
 
 auth = Blueprint('auth',__name__)
@@ -71,6 +72,9 @@ def callback():
         db.session.commit()
         Get_currentuser_playlist(access_token, user)
         Get_pl_item(access_token,user)
+        img = Get_playlist_img(access_token,user)
+        print(img)
+
     else:
         new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
         db.session.add(new_user)
@@ -81,7 +85,7 @@ def callback():
     
     #print(Get_currentuser_playlist(access_token, user))
     
-    return render_template("home.html")
+    return render_template("home.html", images = img)
 
 @auth.route('/spotify-playlist')
 def spotify_getplaylist():
@@ -111,6 +115,9 @@ def spotify_getplaylist():
     result_html = playlists_html +  item_html + track_html
 
     return result_html
+
+
+
 
 @auth.route('/login', methods =[ 'GET','POST'])
 def login():

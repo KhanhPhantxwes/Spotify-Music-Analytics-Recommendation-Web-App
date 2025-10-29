@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150))
     create_at = db.Column(db.DateTime(timezone=True), default=func.now())
     last_login = db.Column(db.DateTime(timezone=True))
-    spotify_id = db.Column(db.String(150),unique=True, index=True, nullable=False)
+    spotify_id = db.Column(db.String(150),unique=True, index=True, nullable=True)
     notes       = db.relationship("Note", back_populates="user", cascade="all, delete-orphan") #define one-to-many relationship between User and Note
     playlists = db.relationship('Playlist', back_populates="owner", cascade="all, delete-orphan")
 
