@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Home{% endblock %}
+{% block content %}
+        <h2>This is playlist item page</h2>
+        <ul class="list-group">
+        {% for id, name in playlist %}
+              <li>{{ name }}</li>
+        {% endfor %}
+</ul>
+{% endblock%}

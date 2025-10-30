@@ -1,6 +1,6 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy.sql import func
+from sqlalchemy.sql import funcp
 from datetime import datetime, timezone
 
 class Note(db.Model):
@@ -58,6 +58,12 @@ class User(db.Model, UserMixin):
     #many-to-many
     #song = db.relationship('Song', secondary = User_Song, back_populates = 'user')
 
+
+#Artist_Song = db.Table(
+    #"artist_song",
+    #db.Column('artist_id',db.String(150), db.ForeignKey('artist.artist_id'),primary_key=True),
+    #db.Column('song_id',db.String(150), db.ForeignKey('song.song_id'),primary_key=True),
+#)
 class Song(db.Model):
     __tablename__ = "song"
     added_at = db.Column(db.String(150))
@@ -71,7 +77,15 @@ class Song(db.Model):
 
     #many-to-many 
     playlist = db.relationship('Playlist', secondary = Playlist_Song, back_populates = 'song')
+    #artist = db.relationship('artist', secondary = Artist_Song, back_populates = 'song')
     #user = db.relationship('User', secondary = User_Song , back_populates = 'song')
 
-
-    
+class Artist(db.Model):
+    __tablename__ = "artist"
+    artist_id = db.Column(db.String(150), primary_key = True)
+    artist_name = db.Column(db.String(150))
+    Genre = db.Column(db.String(150))
+    artist_img = db.Column(db.String(150))
+    artist_populatiry = db.Column(db.Integer)
+    many_to_many
+    song = db.relationship('Song', secondary = Artist_Song, back_populates = 'artist')

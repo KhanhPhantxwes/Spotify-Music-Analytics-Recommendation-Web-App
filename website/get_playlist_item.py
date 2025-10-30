@@ -34,6 +34,12 @@ def Get_pl_item(access_token: str, user: User):
                 lyric = ''
                 new_song = Song(added_at = when_added,owner_id = owner, song_id=song_id,artist_id=artist_id,song_name=song_name,song_popularity = popularity,mood=mood,lyric=lyric)
                 db.session.add(new_song)
+                song_obj = new_song
+            
+            if song_obj not in pl.song:
+                pl.song.append(song_obj)
+                
+                
 
     db.session.commit()
 

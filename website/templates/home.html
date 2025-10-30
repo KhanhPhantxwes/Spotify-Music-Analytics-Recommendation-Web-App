@@ -4,25 +4,20 @@
         <div class="container mt-4">
                 <div class="row justify-content-start">
                         
-        {% for img, name in images %}
+        {% for img, name,id in images %}
         <div class="col-md-5 me-4 mb-4">
         <div class = "card" style = "width: 18rem;">
 
                 <img src = {{img}} class = " card-img-top" alt = "Playlist image">
                 <div class = "card-body">
                         <h5>Playlist title  : {{name}}</h5>
-                        <p class="card-text">content</p>
-                        <a href="#" class="btn btn-primary">Go to Playlist</a>
+                        <p class="card-text">Playlist ID :  {{id}}</p>
+                       <a href= "{{url_for('views.Playlist_item_display', playlistid = id)}}" class="btn btn-primary">Go to Playlist</a>
                 </div>
         </div>
         </div>
 
         
         {% endfor %}
-
-                </div>
-
-        </div>
-
 
         {% endblock%}
