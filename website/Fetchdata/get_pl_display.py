@@ -1,10 +1,10 @@
-from .model import Playlist, User
-from . import db
+from ..model import Playlist, User
+from .. import db
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
 
-from website.model import Playlist, User
+
 
 
 def Get_playlist_display(access_token: str, user: User):

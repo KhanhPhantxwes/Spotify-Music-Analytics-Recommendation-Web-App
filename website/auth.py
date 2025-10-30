@@ -1,5 +1,7 @@
 from datetime import datetime, timezone
-from .get_pl_display import Get_playlist_display
+
+from website.Fetchdata.Get_artists import  Get_artists
+from .Fetchdata.get_pl_display import Get_playlist_display
 from zoneinfo import ZoneInfo
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
 from .model import User
@@ -12,6 +14,7 @@ import os
 from flask_login import current_user, login_user
 from .get_playlist import Get_currentuser_playlist
 from .get_playlist_item import Get_pl_item
+
 
 auth = Blueprint('auth',__name__)
 
@@ -73,7 +76,8 @@ def callback():
         Get_currentuser_playlist(access_token, user)
         Get_pl_item(access_token,user)
         img = Get_playlist_display(access_token,user)
-        #print(img)
+        Get_artists(access_token,User)
+        
 
     else:
         new_user = User(email=user_email, first_name = user_name, last_login  = user_last_login, spotify_id = user_id)
@@ -82,6 +86,9 @@ def callback():
         Get_currentuser_playlist(access_token, new_user)
         Get_pl_item(access_token,new_user)
         img = Get_playlist_display(access_token,user)
+        Get_artists(access_token,User)
+        
+        
         #print(img)
 
     
