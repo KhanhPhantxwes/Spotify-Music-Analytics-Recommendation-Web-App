@@ -1,11 +1,11 @@
-from .model import Playlist, User, Song
+from .model import Artist, Playlist, User, Song
 from . import db
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
 def Get_pl_item(access_token: str, user: User):
     sp = Spotify(auth=access_token)
-    #id = '4GEHf0KSpeKjsmQOMiUj0I' need to query playlist table to retrieve id of each playlist
+
 
     #get current_user id
     current_user = user.spotify_id
@@ -36,10 +36,21 @@ def Get_pl_item(access_token: str, user: User):
                 db.session.add(new_song)
                 song_obj = new_song
             
+            for a in track.get("artists", []):
+                ar_id = a.get("id")
+                if not ar_id:
+                    continue
+                artist_obj = Artist.query.get(ar_id)
+                if artist_obj is None:
+                    artist_obj = Artist(artist_id=ar_id, artist_name=a.get("name"))
+                    db.session.add(artist_obj)
+                if artist_obj not in song_obj.artist:
+                    song_obj.artist.append(artist_obj)
+
+
+            #append to the playlist_song table
             if song_obj not in pl.song:
                 pl.song.append(song_obj)
-                
-                
-
+    
     db.session.commit()
 

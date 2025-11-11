@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
+
+from website.Recommendation.get_lyric import get_song_info, song_lyric
+
 from .model import Playlist, User, Song,Playlist_Song
 from . import db
 from spotipy import Spotify
@@ -18,5 +21,7 @@ def Playlist_item_display(playlistid):
                 Playlist_Song, Song.song_id == Playlist_Song.c.song_id
         ).filter(Playlist_Song.c.playlist_id == playlistid).all()
 
+        get_song_info()
+        song_lyric()
 
         return render_template("playlist_item.html", playlist = playlist_item)
