@@ -73,7 +73,7 @@ class Song(db.Model):
     song_name = db.Column(db.String(150))
     song_popularity = db.Column(db.Integer)
     mood = db.Column(db.String(150))
-    lyric = db.Column(db.String(2000))
+    lyric = db.Column(db.Text)
 
     #many-to-many 
     playlist = db.relationship('Playlist', secondary = Playlist_Song, back_populates = 'song')
