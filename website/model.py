@@ -80,7 +80,7 @@ class Song(db.Model):
     artist = db.relationship('Artist', secondary = Artist_Song, back_populates = 'song')
     # One-to-one embedding (lyrics vector)
     song_point = db.relationship(
-        "SongPoint",
+        "Song_point",
         back_populates="song",
         uselist=False,
         cascade="all, delete-orphan",
