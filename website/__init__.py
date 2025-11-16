@@ -43,3 +43,8 @@ def create_database(app):
             db.create_all()
         print('Create Database')
 
+def reset_database(app):
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        print("Database has been reset")

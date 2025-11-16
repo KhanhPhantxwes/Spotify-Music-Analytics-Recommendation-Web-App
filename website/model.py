@@ -78,7 +78,14 @@ class Song(db.Model):
     #many-to-many 
     playlist = db.relationship('Playlist', secondary = Playlist_Song, back_populates = 'song')
     artist = db.relationship('Artist', secondary = Artist_Song, back_populates = 'song')
-    #user = db.relationship('User', secondary = User_Song , back_populates = 'song')
+    # One-to-one embedding (lyrics vector)
+    song_point = db.relationship(
+        "SongPoint",
+        back_populates="song",
+        uselist=False,
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
 class Artist(db.Model):
     __tablename__ = "artist"
@@ -89,3 +96,12 @@ class Artist(db.Model):
     artist_populatiry = db.Column(db.Integer)
     #many_to_many
     song = db.relationship('Song', secondary = Artist_Song, back_populates = 'artist')
+
+class Song_point(db.Model):
+    __tablename__ = "song_point"
+    song_id = db.Column(db.String(150), db.ForeignKey('song.song_id',ondelete="CASCADE"), primary_key=True)
+    vec_json = db.Column(db.Text)  # JSON-encoded list[float]
+    dim = db.Column(db.Integer)
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+    song = db.relationship("Song", back_populates="song_point", passive_deletes=True)
+
