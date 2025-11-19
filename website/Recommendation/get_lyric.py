@@ -7,6 +7,11 @@ from collections import defaultdict
 
 from sqlalchemy.orm import joinedload
 
+def get_songid():
+    song_list = (db.session.query(Song.song_id)
+                .all())
+    return [row[0] for row in song_list]
+
 def get_song_info(): #get list of song with name and artist name
     songs = Song.query.options(joinedload(Song.artist)).all()  # eager load M2M
     song_info = []

@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 
 from website.Fetchdata.Get_artists import  Get_artists
+from website.Recommendation.get_lyric import get_songid
+from website.Recommendation.get_lyrics_vector import ensure_song_embedding
 from .Fetchdata.get_pl_display import Get_playlist_display
 from zoneinfo import ZoneInfo
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
@@ -77,6 +79,10 @@ def callback():
         Get_pl_item(access_token,user)
         img = Get_playlist_display(access_token,user)
         Get_artists(access_token,User)
+        song_list = get_songid()
+        for song in song_list:
+            ensure_song_embedding(song)
+
         
 
     else:
