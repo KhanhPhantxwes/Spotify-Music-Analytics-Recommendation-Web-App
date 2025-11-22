@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from website.Fetchdata.Get_artists import  Get_artists
 from website.Recommendation.get_lyric import get_songid
 from website.Recommendation.get_lyrics_vector import ensure_song_embedding
+from website.Recommendation.get_playlist_vector import Get_playlist_vibe
 from .Fetchdata.get_pl_display import Get_playlist_display
 from zoneinfo import ZoneInfo
 from flask import Blueprint,render_template, request,flash,redirect, session, url_for
@@ -16,6 +17,7 @@ import os
 from flask_login import current_user, login_user
 from .get_playlist import Get_currentuser_playlist
 from .get_playlist_item import Get_pl_item
+import numpy as np
 
 
 auth = Blueprint('auth',__name__)
@@ -82,6 +84,7 @@ def callback():
         song_list = get_songid()
         for song in song_list:
             ensure_song_embedding(song)
+        print(np.linalg.norm(Get_playlist_vibe('4GEHf0KSpeKjsmQOMiUj0I')))
 
         
 
