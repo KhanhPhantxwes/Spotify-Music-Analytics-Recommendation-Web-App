@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from website.Fetchdata.Get_artists import  Get_artists
+from website.Fetchdata.get_top50 import Get_top100
 from website.Recommendation.get_lyric import get_songid
 from website.Recommendation.get_lyrics_vector import ensure_song_embedding
 from website.Recommendation.get_playlist_vector import Get_playlist_vibe
@@ -81,10 +82,11 @@ def callback():
         Get_pl_item(access_token,user)
         img = Get_playlist_display(access_token,user)
         Get_artists(access_token,User)
+        Get_top100(access_token, User)
         song_list = get_songid()
         for song in song_list:
             ensure_song_embedding(song)
-        print(np.linalg.norm(Get_playlist_vibe('4GEHf0KSpeKjsmQOMiUj0I')))
+        #print(np.linalg.norm(Get_playlist_vibe('4GEHf0KSpeKjsmQOMiUj0I'))) # //v// = 0.99999994 -> normalized average vector
 
         
 

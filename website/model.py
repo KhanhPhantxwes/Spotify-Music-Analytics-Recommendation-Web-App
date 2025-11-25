@@ -105,3 +105,39 @@ class Song_point(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
     song = db.relationship("Song", back_populates="song_point", passive_deletes=True)
 
+class BillboardEntry(db.Model):
+    __tablename__ = "billboard_entry"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    # e.g. "hot-100"
+    chart_name = db.Column(db.String(50), nullable=False, index=True)
+
+    # e.g. date of chart: 2025-11-23
+    chart_date = db.Column(db.Date, nullable=False, index=True)
+
+    rank = db.Column(db.Integer, nullable=False)
+
+    song_title = db.Column(db.String(200))
+    artist_name = db.Column(db.String(200))
+    lyric = db.Column(db.Text)
+    vec_json = db.Column(db.Text)  # JSON-encoded list[float]
+
+class BillboardEntry2(db.Model):
+    __tablename__ = "billboard_entry2"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    # e.g. "hot-100"
+    chart_name = db.Column(db.String(50), nullable=False, index=True)
+
+    # e.g. date of chart: 2025-11-23
+    chart_date = db.Column(db.Date, nullable=False, index=True)
+
+    rank = db.Column(db.Integer, nullable=False)
+
+    song_title = db.Column(db.String(200))
+    artist_name = db.Column(db.String(200))
+    lyric = db.Column(db.Text)
+    vec_json = db.Column(db.Text)  # JSON-encoded list[float]
+
