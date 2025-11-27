@@ -7,6 +7,80 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     
     <title>{% block title%}Home{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .song-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .song-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .song-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .song-artist {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .song-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .badge-rank {
+            font-size: 0.8rem;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        .chip {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #f0f0ff;
+            margin-right: 4px;
+        }
+
+        .similarity {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 

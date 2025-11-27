@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 
 from website.Recommendation.get_lyric import get_song_info, song_lyric
+from website.Recommendation.get_recommendation import Get_recommendation
 
 from .model import Artist, Playlist, User, Song,Playlist_Song
 from . import db
@@ -26,6 +27,10 @@ def Playlist_item_display(playlistid):
         
 
         #get_song_info()
-        print(song_lyric(playlist_item))
+        #print(song_lyric(playlist_item))
 
-        return render_template("playlist_item.html", playlist = playlist_item)
+        #4GEHf0KSpeKjsmQOMiUj0I
+        #print(Get_recommendation(playlistid,30,10000))
+        recommended_list = Get_recommendation(playlistid,30,10000)
+
+        return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list)

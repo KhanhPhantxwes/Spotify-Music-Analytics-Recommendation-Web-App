@@ -36,11 +36,13 @@ def Get_top100(access_token: str, user: User):
         existing = db.session.execute(
             select(BillboardEntry2.id).where(
                 BillboardEntry2.chart_name == "hot-100",
-                BillboardEntry2.chart_date == chart_date_obj,
+                #BillboardEntry2.chart_date == chart_date_obj,
                 BillboardEntry2.song_title == entry.title,
                 BillboardEntry2.artist_name == entry.artist,
             )
-        ).scalar_one_or_none()
+        ).scalar()
+
+        #print("  existing id:", existing)
 
         if existing:
             # already have this song for this chart/date → skip

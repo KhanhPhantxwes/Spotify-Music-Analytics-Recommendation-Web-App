@@ -5,5 +5,37 @@
       {% for name, artist in playlist %}
             <li>{{ name }} — {{ artist }}</li>
       {% endfor %}
+
+      <h2>This is list of 30 songs that are recommended for you today based on the vibe of your playlist</h2><br>
+      {% if recs %}
+      <div class="card-container">
+      {% for item in recs %}
+      <div class="song-card">
+            <div>
+            <div class="song-header">
+                  <div class="song-title">{{ item.song_title }}</div>
+                  <span class="badge-rank">Chart rank #{{ item.rank }}</span>
+            </div>
+            <div class="song-artist">{{ item.artist_name }}</div>
+
+            <div class="song-meta">
+                  <span class="chip">
+                  Similarity:
+                  <span class="similarity">
+                        {{ "%.3f"|format(item.similarity) }}
+                  </span>
+                  </span>
+                  <span class="chip">
+                  Chart date: {{ item.chart_date }}
+                  </span>
+            </div>
+      </div>
+      </div>
+      {% endfor %}
+      </div>
+{% else %}
+      <p style="text-align:center;">No recommendations available.</p>
+{% endif %}
+
 </ul>
 {% endblock%}
