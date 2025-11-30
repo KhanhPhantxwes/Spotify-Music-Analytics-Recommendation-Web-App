@@ -27,10 +27,9 @@ def Playlist_item_display(playlistid):
         
 
         #get_song_info()
-        #print(song_lyric(playlist_item))
+        song_lyric(playlist_item)
 
-        #4GEHf0KSpeKjsmQOMiUj0I
-        #print(Get_recommendation(playlistid,30,10000))
+        
         recommended_list = Get_recommendation(playlistid,30,10000)
 
         return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list)
