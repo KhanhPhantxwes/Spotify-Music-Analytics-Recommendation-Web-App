@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 
+from website.Graph.Circle import Circle_graph
 from website.Recommendation.get_lyric import get_song_info, song_lyric
 from website.Recommendation.get_recommendation import Get_recommendation
 
@@ -7,6 +8,11 @@ from .model import Artist, Playlist, User, Song,Playlist_Song
 from . import db
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
+
+import io
+import base64
+import matplotlib
+matplotlib.use("Agg")  # important on servers / no GUI
 
 views = Blueprint('views',__name__)
 
@@ -27,9 +33,16 @@ def Playlist_item_display(playlistid):
         
 
         #get_song_info()
+
+        #Fetch lyric of songs into database
         song_lyric(playlist_item)
 
-        
+        #List of recommendations
         recommended_list = Get_recommendation(playlistid,30,10000)
 
-        return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list)
+        #Graph
+        mood_chart = Circle_graph(playlistid)
+
+
+
+        return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list, chart =mood_chart)

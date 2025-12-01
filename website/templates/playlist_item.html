@@ -6,6 +6,11 @@
             <li>{{ name }} — {{ artist }}</li>
       {% endfor %}
 
+      {% if chart %}
+      <h3>Mood Distribution</h3>
+      <img src="data:image/png;base64,{{ chart }}" alt="Mood Chart" />
+      {% endif %}
+
       <h2>This is list of 30 songs that are recommended for you today based on the vibe of your playlist</h2><br>
       {% if recs %}
       <div class="card-container">
