@@ -12,6 +12,8 @@ def get_songid():
                 .all())
     return [row[0] for row in song_list]
 
+
+
 def get_song_info(): #get list of song with name and artist name
     songs = Song.query.options(joinedload(Song.artist)).all()  # eager load M2M
     song_info = []
@@ -27,7 +29,7 @@ def song_lyric(song_list):
 
     results = []
 
-    for song_name, artist_name in song_list:
+    for song_id,song_name, artist_name in song_list:
         song_obj = (Song.query.filter_by(song_name=song_name).first())
         if song_obj is None:
             print(f"⚠️ Song '{song_name}' not found in DB, skipping.")

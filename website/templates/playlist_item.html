@@ -2,8 +2,13 @@
 {% block content %}
       <h2>This is playlist item page</h2>
       <ul class="list-group">
-      {% for name, artist in playlist %}
-            <li>{{ name }} — {{ artist }}</li>
+      {% for id,name, artist in playlist %}
+            <li>
+      <a href="{{ url_for('views.Playlist_item_display',playlistid=playlistid, song_id=id) }}#song-modal">
+      {{ name }}
+      </a>
+      — {{ artist }}
+      </li>
       {% endfor %}
 
       {% if chart %}
@@ -41,6 +46,28 @@
 {% else %}
       <p style="text-align:center;">No recommendations available.</p>
 {% endif %}
+
+
+{% if selected_song_lyric %}
+<div id="song-modal" class="modal-overlay">
+      <div class="modal-box">
+      <a href="{{ url_for('views.Playlist_item_display', playlistid=playlistid) }}"
+            class="close-btn">&times;</a>
+
+      <h3>{{ selected_song_lyric.song_name }}</h3>
+      <p><strong>Artist:</strong> {{ selected_song_lyric.artist_name }}</p>
+
+      {% if selected_song_lyric.lyric %}
+      <pre style="max-height: 250px; overflow-y: auto;">
+{{ selected_song_lyric.lyric }}
+      </pre>
+      {% else %}
+      <p><em>No lyrics stored for this song.</em></p>
+{% endif %}
+</div>
+</div>
+{% endif %}
+
 
 </ul>
 {% endblock%}

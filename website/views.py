@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for
+
+
+from flask import Blueprint, render_template, redirect, url_for, request
 
 from website.Graph.Circle import Circle_graph
 from website.Recommendation.get_lyric import get_song_info, song_lyric
@@ -24,17 +26,20 @@ def home():
 def Playlist_item_display(playlistid):
         
         playlist_item = (
-                db.session.query( Song.song_name, Artist.artist_name)
+                db.session.query( Song.song_id,Song.song_name, Artist.artist_name)
                 .join(Playlist_Song, Song.song_id == Playlist_Song.c.song_id)
                 .join(Artist, Song.artist_id == Artist.artist_id)
                 .filter(Playlist_Song.c.playlist_id == playlistid)
                 .all()
         )
         
+        #To display song lyric onclick from html
+        song_id = request.args.get("song_id", type = str)
+        selected_song = None
+        if song_id:
+                selected_song = Song.query.get(song_id) #Return a Song instance
 
-        #get_song_info()
-
-        #Fetch lyric of songs into database
+        #Fetch lyric of songs into database (if new song is added)
         song_lyric(playlist_item)
 
         #List of recommendations
@@ -45,4 +50,5 @@ def Playlist_item_display(playlistid):
 
 
 
-        return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list, chart =mood_chart)
+        return render_template("playlist_item.html", playlist = playlist_item, recs= recommended_list, chart =mood_chart,
+                                selected_song_lyric = selected_song, playlistid = playlistid )
