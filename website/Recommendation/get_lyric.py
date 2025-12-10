@@ -1,3 +1,4 @@
+import os
 from website.model import Artist, Artist_Song, Song
 from .. import db
 import lyricsgenius
@@ -23,7 +24,7 @@ def get_song_info(): #get list of song with name and artist name
     return song_info
     
 def song_lyric(song_list):
-    access_token = "YaMnWwPTM5olA0OrlNIu4tzhwehCDWHlJdguSp1ml1HKL44H9guBSJeNd0wLrL17"
+    access_token = os.getenv("GENIUS_API_KEY")
     # Initialize Genius client
     genius = lyricsgenius.Genius(access_token)
 

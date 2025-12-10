@@ -3,6 +3,8 @@ from .. import db
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
+#True with playlist created by user -- > need another funtion to retrieve artist by mapping song_id
+
 def Get_artists(access_token: str, user:User):
     sp = Spotify(auth=access_token)
     artist_tuple = (db.session.query(Song.artist_id).filter_by(owner_id = user.spotify_id).all())
@@ -24,7 +26,7 @@ def Get_artists(access_token: str, user:User):
             )
             db.session.add(artist_info)
         else:
-            print(f"Error retrieving artist info")
+            #print(f"Error retrieving artist info")
             # optional: update existing
             check_artist.artist_name = artist["name"]
             check_artist.genre = ", ".join(artist.get("genres", []))[:150]
@@ -32,9 +34,4 @@ def Get_artists(access_token: str, user:User):
             check_artist.artist_popularity = artist.get("popularity")
 
     db.session.commit()
-
-
-#def Get_artist_id_list(access_token: str, user: User):
-    #artist_list = (db.session.query(Song.artist_id).filter_by(owner_id = user.spotify_id).all())
-    #return artist_list
 

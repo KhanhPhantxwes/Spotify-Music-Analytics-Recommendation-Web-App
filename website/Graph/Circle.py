@@ -22,7 +22,7 @@ def Circle_graph(playlist_id : str):
     # Sizes for the pie chart
     sizes = list(count.values())
     # Plot
-    fig, ax = plt.subplots(figsize=(3, 3))
+    fig, ax = plt.subplots(figsize=(4, 4))
     ax.pie(
     sizes,
     labels=unique_labels,

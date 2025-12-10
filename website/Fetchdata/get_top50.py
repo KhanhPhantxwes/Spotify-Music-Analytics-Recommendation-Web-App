@@ -8,6 +8,7 @@ import lyricsgenius
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 import billboard
+import os
 
 #GET TOP 100 POPULAR SONGS IN BILLBOARD CHART
 def Get_top100(access_token: str, user: User):
@@ -23,7 +24,7 @@ def Get_top100(access_token: str, user: User):
 
     chart_date_obj = datetime.strptime(chart.date, "%Y-%m-%d").date()
 
-    access_token = "YaMnWwPTM5olA0OrlNIu4tzhwehCDWHlJdguSp1ml1HKL44H9guBSJeNd0wLrL17"
+    access_token = os.getenv("GENIUS_API_KEY")
     # Initialize Genius client
     genius = lyricsgenius.Genius(access_token,
         timeout=8,         # seconds per request

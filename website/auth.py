@@ -24,11 +24,13 @@ import numpy as np
 
 auth = Blueprint('auth',__name__)
 
-Client_id = 'ecbedf2ee9224930b498f45f0e39301a'
-Client_secret = 'bdc98e6f899b423c9f96bec0cbb2860c'
-Redirect_url = 'http://127.0.0.1:5000/callback'
-Scope = 'user-library-read playlist-modify-public playlist-read-private user-read-email' #different access scopes
-
+Client_id = os.getenv("SPOTIPY_CLIENT_ID")
+Client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+Redirect_url = os.getenv("SPOTIPY_REDIRECT_URI", "http://127.0.0.1:5000/callback")
+Scope = os.getenv(
+    "SPOTIPY_SCOPE",
+    "user-library-read playlist-modify-public playlist-read-private user-read-email",
+)
 cache_handler = FlaskSessionCacheHandler(session)
 
 ############################
