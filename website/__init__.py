@@ -40,10 +40,11 @@ def create_app():
     return app
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME):
+    db_path = f"/tmp/{DB_NAME}"
+    if not path.exists(db_path):
         with app.app_context():
             db.create_all()
-        print('Create Database')
+        print("Database created at /tmp")
 
 def reset_database(app):
     with app.app_context():
