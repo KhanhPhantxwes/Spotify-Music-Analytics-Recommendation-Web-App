@@ -4,6 +4,7 @@ from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
 def Get_currentuser_playlist(access_token: str, user: User):
+
     sp = Spotify(auth=access_token)
     playlists = sp.current_user_playlists()
 
@@ -43,6 +44,14 @@ def Get_currentuser_playlist(access_token: str, user: User):
     db.session.commit()
 
     print(f"✅ Synced playlists for {user.spotify_id}")
+
+
+
+
+
+
+
+
 
 
 

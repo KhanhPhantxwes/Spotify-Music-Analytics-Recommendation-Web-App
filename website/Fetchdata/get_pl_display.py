@@ -2,11 +2,7 @@ from ..model import Playlist, User
 from .. import db
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
-from sqlalchemy import select
 from website.model import Artist, Artist_Song, Song, Song_point,BillboardEntry2,Playlist_Song
-
-
-
 
 
 def Get_playlist_display(access_token: str, user: User):

@@ -6,7 +6,6 @@ from spotipy.oauth2 import SpotifyOAuth
 def Get_pl_item(access_token: str, user: User):
     sp = Spotify(auth=access_token)
 
-
     #get current_user id
     current_user = user.spotify_id
 
@@ -44,6 +43,7 @@ def Get_pl_item(access_token: str, user: User):
                 if artist_obj is None:
                     artist_obj = Artist(artist_id=ar_id, artist_name=a.get("name"))
                     db.session.add(artist_obj)
+                #append to the artist_song table
                 if artist_obj not in song_obj.artist:
                     song_obj.artist.append(artist_obj)
 
