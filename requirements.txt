@@ -9,4 +9,3 @@ spotipy
 matplotlib
 lyricsgenius
 billboard
-os
