@@ -7,3 +7,6 @@ python-dotenv
 requests
 spotipy
 matplotlib
+lyricsgenius
+billboard
+os
